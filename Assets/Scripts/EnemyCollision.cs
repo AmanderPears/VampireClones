@@ -27,7 +27,7 @@ public class EnemyCollision : MonoBehaviour
         //var obj = collision.transform.gameObject;
         //Debug.Log("Parent: " + obj.tag + " | " + obj.name);
 
-        Debug.Log("ENEMY COLLISION");
+        //Debug.Log("ENEMY COLLISION");
 
         if (collision.transform.tag.ToLower().Equals("attacks"))
         {

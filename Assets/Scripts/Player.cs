@@ -6,8 +6,12 @@ public class Player : MonoBehaviour
 {
 
     public float movementSpeed;
-    public int healthPoints;
     public float positionOffset;
+
+
+    public int healthPoints;
+    public int maxHealthPoints;
+    public HealthBar healthBar;
 
 
     Animator animator;
@@ -31,8 +35,14 @@ public class Player : MonoBehaviour
         //gameObject.GetComponent<Renderer>().material.color = Color.red;
         transform.position = new Vector3((20 / 2), positionOffset, (20 / 2));
         movementSpeed = .3f;
-        healthPoints = 20;
         animator = gameObject.GetComponent<Animator>();
+
+
+        maxHealthPoints = 20;
+        healthBar.SetMaxHealth(maxHealthPoints);
+        healthPoints = maxHealthPoints;
+        healthBar.SetHealth(healthPoints);
+
 
         ////enemy referebce
         //enemyReference = GameObject.FindGameObjectWithTag("Enemy");
@@ -78,7 +88,8 @@ public class Player : MonoBehaviour
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
         if (collision.gameObject.tag == "enemy")
         {
-            Debug.Log(healthPoints--);
+            Debug.Log(--healthPoints);
+            healthBar.SetHealth(healthPoints);
         }
     }
 
@@ -190,13 +201,15 @@ public class Player : MonoBehaviour
 
     void attack()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f, 1 << LayerMask.NameToLayer("enemy"));
 
         float smallestDistance = float.MaxValue;
         Collider nearestCollider = null;
 
         foreach (var hitCollider in hitColliders)
         {
+            Debug.Log(hitCollider.name);
+
             float dist = Vector3.Distance(
                 hitCollider.transform.GetComponent<Renderer>().bounds.center,
                 _renderer.bounds.center);
@@ -214,7 +227,7 @@ public class Player : MonoBehaviour
 
         if (nearestCollider != null)
         {
-            //Debug.Log("Attacking: " + nearestCollider.gameObject.transform.parent.name);
+            Debug.Log("Attacking: " + nearestCollider.gameObject.transform.parent.name);
             createAttack(nearestCollider.transform.GetComponent<Renderer>().bounds.center);
         }
 
@@ -268,6 +281,15 @@ public class Player : MonoBehaviour
 
         }
     }
+
+
+    void updateHealthBar()
+    {
+        healthBar.SetMaxHealth(maxHealthPoints);
+        healthBar.SetHealth(healthPoints);
+    }
+
+
 }
 
 
