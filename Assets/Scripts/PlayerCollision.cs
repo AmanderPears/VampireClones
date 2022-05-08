@@ -10,14 +10,14 @@ public class PlayerCollision : MonoBehaviour
 
     private bool isInvulnerable = false;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         //Debug.Log(collision.transform.name + " | " + collision.transform.tag);
         healthBar.SetHealth(--player.healthPoints);
     }
 
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (!isInvulnerable)
         {

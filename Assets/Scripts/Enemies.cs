@@ -82,7 +82,7 @@ public class Enemies : MonoBehaviour
         var objMesh = _enemy.GetComponentInChildren<SkinnedMeshRenderer>();
 
         var boxCollider = objMesh.gameObject.AddComponent<BoxCollider>();
-        //boxCollider.isTrigger = true;
+        boxCollider.isTrigger = true;
 
         objMesh.gameObject.AddComponent<EnemyCollision>();
 

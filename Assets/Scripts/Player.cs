@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
 
         foreach (var hitCollider in hitColliders)
         {
-            Debug.Log(hitCollider.name);
+            //Debug.Log(hitCollider.name);
 
             float dist = Vector3.Distance(
                 hitCollider.transform.GetComponent<Renderer>().bounds.center,
@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
 
         if (nearestCollider != null)
         {
-            Debug.Log("Attacking: " + nearestCollider.gameObject.transform.parent.name);
+            //Debug.Log("Attacking: " + nearestCollider.gameObject.transform.parent.name);
             createAttack(nearestCollider.transform.GetComponent<Renderer>().bounds.center);
         }
 
@@ -288,9 +288,6 @@ public class Player : MonoBehaviour
         healthBar.SetMaxHealth(maxHealthPoints);
         healthBar.SetHealth(healthPoints);
     }
-
-    public Camera cameraa;
-    public GameObject enemyy;
 }
 
 

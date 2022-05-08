@@ -23,34 +23,21 @@ public class Enemy : MonoBehaviour
         healthPoint = 1;
         animator = gameObject.GetComponent<Animator>();
 
-        //transform.position = getRandomPosition();
 
 
         playerReference = GameObject.FindGameObjectWithTag("Player");
         playerScript = playerReference.GetComponent<Player>();
-
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        killIfNoHp();
-        moveTowardsPlayer();
+        KillIfNoHp();
+        MoveTowardsPlayer();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
-    private void moveTowardsPlayer()
+    private void MoveTowardsPlayer()
     {
         // Move our position a step closer to the target.
         var step = movementSpeed * Time.deltaTime; // calculate distance to move
@@ -66,36 +53,15 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private Vector3 getRandomPosition()
-    {
-        var lowerBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        var upperBound = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 1));
-
-
-        var x = Random.Range(lowerBound.x, upperBound.x) + positionOffset;
-        var y = positionOffset;
-        var z = Random.Range(lowerBound.z, upperBound.z) + positionOffset;
-
-        return new Vector3(x, y, z);
-    }
-
-    public void OnMouseDown()
-    {
-        transform.position = getRandomPosition();
-    }
-
-
     public void TakeDamage(float value)
     {
         this.healthPoint -= value;
     }
 
-    void killIfNoHp()
+    void KillIfNoHp()
     {
         if (this.healthPoint <= 0)
         {
-            //this.healthPoint = 1;
-            //transform.position = getRandomPosition();
             //Debug.Log("I was killed...");
             Destroy(gameObject);
 

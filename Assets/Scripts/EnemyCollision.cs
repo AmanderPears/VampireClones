@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        //Debug.Log("ASDASD");
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("EnemyChild: " + collision.transform.tag + " | " + collision.transform.name);
@@ -35,6 +18,18 @@ public class EnemyCollision : MonoBehaviour
             script.TakeDamage(1);
 
             collision.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag.ToLower().Equals("attacks"))
+        {
+            //Debug.Log("Collision with other");
+            var script = transform.GetComponentInParent<Enemy>();
+            script.TakeDamage(1);
+
+            other.gameObject.SetActive(false);
         }
     }
 }
