@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
-            MainCamera.transform.rotation = cameraRotation;
+            MainCamera.transform.rotation = cameraRotation; 
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -289,7 +289,8 @@ public class Player : MonoBehaviour
         healthBar.SetHealth(healthPoints);
     }
 
-
+    public Camera cameraa;
+    public GameObject enemyy;
 }
 
 

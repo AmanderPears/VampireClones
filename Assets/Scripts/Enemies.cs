@@ -68,32 +68,22 @@ public class Enemies : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     private int enemyCount = 0;
     void spawnEnemy()
     {
 
         var prefab = Random.Range(0f, 1f) <= 0.5f ? enemy_1 : enemy_2;
-        float x = Random.Range(0, gameWidth);
-        float z = Random.Range(0, gameHeight);
-        GameObject _enemy = Instantiate(prefab, new Vector3(x, 0, z), Quaternion.identity);
+        GameObject _enemy = Instantiate(prefab, getRandomPosition(), Quaternion.identity);
         _enemy.transform.parent = transform;
         _enemy.gameObject.name = "enemy_" + enemyCount++;
         _enemy.transform.localScale = new Vector3(5, 5, 5);
         _enemy.AddComponent<Enemy>();
 
         var objMesh = _enemy.GetComponentInChildren<SkinnedMeshRenderer>();
-        objMesh.gameObject.AddComponent<BoxCollider>();
+
+        var boxCollider = objMesh.gameObject.AddComponent<BoxCollider>();
+        //boxCollider.isTrigger = true;
+
         objMesh.gameObject.AddComponent<EnemyCollision>();
 
         var rigidBody = objMesh.gameObject.AddComponent<Rigidbody>();
@@ -111,47 +101,27 @@ public class Enemies : MonoBehaviour
         }
     }
 
-
-    void createSpawnPlane()
+    Vector3 getRandomPosition()
     {
+        var lowerBoundLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Camera.main.farClipPlane));
+        var upperBoundRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.farClipPlane));
 
-        float w = 2f;
-        float h = 2f;
 
-        var player = GameObject.FindGameObjectWithTag("Player");
-        spawnPlane = new GameObject();
-        var mf = spawnPlane.AddComponent<MeshFilter>();
-        var mr = spawnPlane.AddComponent<MeshRenderer>();
+        float x, y = 0, z;
 
-        var m = new Mesh();
-        m.vertices = new Vector3[]
+        if (((int)Random.Range(0, 2)) == 0)
         {
-            new Vector3(0,0,0),
-            new Vector3(w,0,0),
-            new Vector3(w,h,0),
-            new Vector3(0,h,0)
-        };
-
-        m.uv = new Vector2[]
+            //Debug.Log("x varies, z fixed");
+            x = Random.Range(lowerBoundLeft.x, upperBoundRight.x);
+            z = (int)Random.Range(0, 2) == 0 ? upperBoundRight.z : lowerBoundLeft.z;
+        }
+        else
         {
-            new Vector2(0,0),
-            new Vector2(1,0),
-            new Vector2(1,1),
-            new Vector2(0,1)
-        };
+            //Debug.Log("z varies, x fixed");
+            x = (int)Random.Range(0, 2) == 0 ? upperBoundRight.x : lowerBoundLeft.x;
+            z = Random.Range(upperBoundRight.z, lowerBoundLeft.z);
+        }
 
-        m.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
-
-        mf.mesh = m;
-        m.RecalculateBounds();
-        m.RecalculateNormals();
-
-
-        spawnPlane.transform.Rotate(new Vector3(90, 0, 0));
-        spawnPlane.transform.parent = player.transform;
-        spawnPlane.transform.position = player.transform.position;
-        //spawnPlane.transform.
-
-
+        return new Vector3(x, y, z);
     }
 }
