@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     public GameObject playerReference;
     public Player playerScript;
 
+    public GameObject xpOrbParent;
+    public GameObject xpOrb;
+
     private void Awake()
     {
         //set color to red
@@ -27,7 +30,6 @@ public class Enemy : MonoBehaviour
 
         playerReference = GameObject.FindGameObjectWithTag("Player");
         playerScript = playerReference.GetComponent<Player>();
-
     }
 
     // Update is called once per frame
@@ -63,8 +65,19 @@ public class Enemy : MonoBehaviour
         if (this.healthPoint <= 0)
         {
             //Debug.Log("I was killed...");
+            DropXpOrb();
             Destroy(gameObject);
 
+        }
+    }
+
+    void DropXpOrb()
+    {
+        if (Random.value < 0.8f)
+        {
+            var pos = new Vector3(transform.position.x, 0.03f, transform.position.z);
+            var tmp = Instantiate(xpOrb, pos, xpOrb.transform.rotation);
+            tmp.transform.parent = xpOrbParent.transform;
         }
     }
 }

@@ -3,7 +3,11 @@ guid: a83794d075dc7654fadde442d99ffe58
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerReference: {instanceID: 0}
+  - playerScript: {instanceID: 0}
+  - xpOrbParent: {instanceID: 0}
+  - xpOrb: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public int maxHealthPoints;
     public HealthBar healthBar;
 
+    public float pickupRadius;
+
 
     Animator animator;
-    Vector3 oldPos;
 
     //public GameObject enemyReference;
     //public Enemy enemyScript;
@@ -26,7 +27,9 @@ public class Player : MonoBehaviour
     public GameObject attackPrefab;
     private List<Attack> attackList;
 
-    private Renderer _renderer;
+    public Renderer _renderer;
+
+    public GameObject attacksParent;
 
     private void Awake()
     {
@@ -42,6 +45,8 @@ public class Player : MonoBehaviour
         healthBar.SetMaxHealth(maxHealthPoints);
         healthPoints = maxHealthPoints;
         healthBar.SetHealth(healthPoints);
+
+        pickupRadius = 0.1f;
 
 
         ////enemy referebce
@@ -73,8 +78,6 @@ public class Player : MonoBehaviour
         animate();
 
         movement();
-        oldPos = transform.position;
-
 
         //Debug.Log(transform.position);
         updateAttack();
@@ -196,6 +199,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         attack();
+        PickUpXpOrb();
     }
 
 
@@ -288,6 +292,24 @@ public class Player : MonoBehaviour
         healthBar.SetMaxHealth(maxHealthPoints);
         healthBar.SetHealth(healthPoints);
     }
+
+
+
+
+    void PickUpXpOrb()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRadius, 1 << LayerMask.NameToLayer("pickups"));
+
+
+        foreach (var hitCollider in hitColliders)
+        {
+            var xpOrb = hitCollider.GetComponent<XpOrb>();
+            xpOrb.picked = true;
+        }
+
+    }
+
+
 }
 
 

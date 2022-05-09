@@ -278,6 +278,9 @@ MonoBehaviour:
   gameScale: 0
   enemy_1: {fileID: 6283678059421122131, guid: d4d35dcd53b10d84287cd2bfec76ef20, type: 3}
   enemy_2: {fileID: 8276732561199478092, guid: e0f69dfd63ab0814496936b971007337, type: 3}
+  enemyList: []
+  xpOrbParent: {fileID: 2386780495503750371, guid: f77ad99db49df4eaa9d82a42d7921aea, type: 3}
+  xpOrb: {fileID: 3344922512177092089, guid: 6b8386c1df70546bf99a3b4c084457f9, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,8 +401,11 @@ MonoBehaviour:
   healthPoints: 0
   maxHealthPoints: 0
   healthBar: {fileID: 1708349113}
+  pickupRadius: 0
   MainCamera: {fileID: 0}
   attackPrefab: {fileID: 6168447822626851424, guid: 71e58c8feed59b34082e4be388ca2017, type: 3}
+  _renderer: {fileID: 0}
+  attacksParent: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +996,36 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1838452699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838452700}
+  m_Layer: 0
+  m_Name: Attacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1838452700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838452699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.199734, y: 0, z: 14.599888}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1910470335
 GameObject:
   m_ObjectHideFlags: 0
