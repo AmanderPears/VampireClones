@@ -27,8 +27,9 @@ public class XpOrb : MonoBehaviour
                 );
 
             if (transform.position.Equals(playerScript._renderer.bounds.center)) {
+                playerScript.UpdateExperience();
                 Destroy(transform.gameObject);
-                Debug.Log("dead");
+                //Debug.Log("dead");
             }
         }
     }

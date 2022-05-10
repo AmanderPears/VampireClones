@@ -6,15 +6,16 @@ public class Player : MonoBehaviour
 {
 
     public float movementSpeed;
-    public float positionOffset;
-
 
     public int healthPoints;
     public int maxHealthPoints;
     public HealthBar healthBar;
 
     public float pickupRadius;
-
+    public int experienceLevel;
+    public float experience;
+    public float maxExperience;
+    public ExperienceBar experienceBar;
 
     Animator animator;
 
@@ -33,21 +34,24 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        //set color to red
-        positionOffset = 0.0f;
         //gameObject.GetComponent<Renderer>().material.color = Color.red;
-        transform.position = new Vector3((20 / 2), positionOffset, (20 / 2));
+        transform.position = new Vector3((20 / 2), 0, (20 / 2));
         movementSpeed = .3f;
         animator = gameObject.GetComponent<Animator>();
 
 
         maxHealthPoints = 20;
-        healthBar.SetMaxHealth(maxHealthPoints);
         healthPoints = maxHealthPoints;
+        healthBar.SetMaxHealth(maxHealthPoints);
         healthBar.SetHealth(healthPoints);
 
         pickupRadius = 0.1f;
-
+        experience = 0;
+        experienceLevel = 0;
+        maxExperience = 20 * experienceLevel * 1.2f;
+        experienceBar.SetMaxExperience(100);
+        experienceBar.SetExperience(0);
+        experienceBar.SetLevel(1);
 
         ////enemy referebce
         //enemyReference = GameObject.FindGameObjectWithTag("Enemy");
@@ -62,15 +66,6 @@ public class Player : MonoBehaviour
         _renderer = transform.GetChild(0).transform.GetComponent<Renderer>();
     }
 
-    //private void OnMouseDown()
-    //{
-    //    enemyScript.OnMouseDown();
-    //}
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
@@ -307,6 +302,21 @@ public class Player : MonoBehaviour
             xpOrb.picked = true;
         }
 
+    }
+
+    public void UpdateExperience(float value = 2f)
+    {
+        experience += value * 2;
+
+        if (experience >= maxExperience)
+        {
+            experienceLevel++;
+            experience -= maxExperience;
+            maxExperience = 20 * experienceLevel * 1.2f;
+        }
+
+        experienceBar.SetExperience((experience / maxExperience) * 100);
+        experienceBar.SetLevel(experienceLevel);
     }
 
 
